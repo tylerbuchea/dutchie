@@ -1,13 +1,13 @@
 module.exports = function throttlePromises(batchLength, promiseArray) {
   const batch = promiseArray.slice(0, batchLength);
   const nextBatch = promiseArray.slice(batchLength);
-  const result = Promise.all(batch);
+  const promises = Promise.all(batch);
 
+  console.log(batch.length, nextBatch.length);
   if (nextBatch.length) {
-    console.log('LENGTTHH');
-    return result.then(() => throttlePromises(batchLength, nextBatch))
+    return promises.then(() => throttlePromises(batchLength, nextBatch))
   } else {
-    console.log('NOOON');
-    return result;
+    console.log('LAST');
+    return promises;
   }
 }
