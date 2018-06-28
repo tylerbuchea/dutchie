@@ -1,6 +1,5 @@
 module.exports = function value(thunk) {
-  if (typeof thunk === 'function') {
-    return value(thunk());
-  }
-  return thunk;
+  return (typeof thunk === 'function')
+    ? value(thunk())
+    : thunk;
 }

@@ -1,16 +1,13 @@
 module.exports = function debounce(fn, time) {
-  var queue = [];
+  let lastFn = null;
 
-  function takeLatest() {
-    var lastFn = queue.pop();
-    queue = [];
+  const takeLatest = () => {
     lastFn();
-  }
-
+    lastFn = null;
+  };
+  
   return function() {
-    queue.push(() => fn.apply(this, arguments));
-    if (queue.length === 1) {
-      setTimeout(takeLatest, time);
-    }
+    if (!lastFn) setTimeout(takeLatest, time);
+    lastFn = () => fn.apply(this, arguments);
   }
 }
