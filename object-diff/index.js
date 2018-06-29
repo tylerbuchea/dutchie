@@ -3,22 +3,7 @@ module.exports = objectDiff;
 function objectDiff(newCode, oldCode) {
   const oldTokens = flatten(oldCode).map(token => ['-'].concat(token));
   const newTokens = flatten(newCode).map(token => ['+'].concat(token));
-
-  const tokenMap = new Map();
-  const allTokens = oldTokens
-    .concat(newTokens)
-    // .map(([operation, path, value]) => [path + ',' + value, operation])
-    // .forEach(([key, value]) => tokenMap.has(key)
-    //     ? tokenMap.delete(key)
-    //     : tokenMap.set(key, value)
-    // );
-
-    // tokenMap
-    // return;
-
-    // .map(token => ['-'].concat(token));
-    // .map(token => ['+'].concat(token));
-
+  const allTokens = oldTokens.concat(newTokens)
   const diffTokens = [];
 
   for ([a, b, c] of allTokens) {
