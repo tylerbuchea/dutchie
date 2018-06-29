@@ -38,11 +38,11 @@ function flatten(parentValue, parentKey = '', path = '') {
 
   if (typeof parentValue === 'number') {
     const token = [ path.slice(2), parentValue ];
-    return token;
+    return [token];
   }
 
   const paths = Object.keys(parentValue)
-    .map(key => flatten(parentValue[key], key, path))
+    .reduce((arr, key) => arr.concat(flatten(parentValue[key], key, path)), []);
 
   return paths;
 }
