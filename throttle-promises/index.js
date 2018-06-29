@@ -1,13 +1,17 @@
-module.exports = function throttlePromises(batchLength, promiseArray) {
-  const batch = promiseArray.slice(0, batchLength);
-  const nextBatch = promiseArray.slice(batchLength);
-  const promises = Promise.all(batch);
+module.exports = async function throttlePromises(batchLength, promiseArray, results = []) {
+  try {
+    const batch = promiseArray.slice(0, batchLength);
+    const nextBatch = promiseArray.slice(batchLength);
+    const nextResults = await Promise.all(batch.map(value => value()));
 
-  console.log(batch.length, nextBatch.length);
-  if (nextBatch.length) {
-    return promises.then(() => throttlePromises(batchLength, nextBatch))
-  } else {
-    console.log('LAST');
-    return promises;
+    results = results.concat(nextResults);
+
+    if (nextBatch.length) {
+      return throttlePromises(batchLength, nextBatch, results);
+    }
+
+    return results;
+  } catch(e) {
+    console.log('yoooo', e);
   }
 }
