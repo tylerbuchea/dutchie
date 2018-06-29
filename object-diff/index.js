@@ -4,17 +4,17 @@ function objectDiff(newCode, oldCode) {
   const oldTokens = flatten(oldCode).map(token => ['-'].concat(token));
   const newTokens = flatten(newCode).map(token => ['+'].concat(token));
 
-  const tokenSet = new Map();
+  const tokenMap = new Map();
   const allTokens = oldTokens
     .concat(newTokens)
-    .map(([operation, path, value]) => [path + ',' + value, operation])
-    .forEach(([key, value]) => tokenSet.has(key)
-        ? tokenSet.delete(key)
-        : tokenSet.set(key, value)
-    );
+    // .map(([operation, path, value]) => [path + ',' + value, operation])
+    // .forEach(([key, value]) => tokenMap.has(key)
+    //     ? tokenMap.delete(key)
+    //     : tokenMap.set(key, value)
+    // );
 
-    console.log(tokenSet);
-    return;
+    // tokenMap
+    // return;
 
     // .map(token => ['-'].concat(token));
     // .map(token => ['+'].concat(token));
@@ -38,15 +38,11 @@ function flatten(parentValue, parentKey = '', path = '') {
 
   if (typeof parentValue === 'number') {
     const token = [ path.slice(2), parentValue ];
-    return [token];
+    return token;
   }
 
-  let paths = [];
-
-  for (let key in parentValue) {
-    const nextPath = flatten(parentValue[key], key, path);
-    paths = paths.concat(nextPath);
-  }
+  const paths = Object.keys(parentValue)
+    .map(key => flatten(parentValue[key], key, path))
 
   return paths;
 }
