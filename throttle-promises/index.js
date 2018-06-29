@@ -1,4 +1,6 @@
-module.exports = async function throttlePromises(batchLength, promiseArray, results = []) {
+module.exports = throttlePromises;
+
+async function throttlePromises(batchLength, promiseArray, results = []) {
   try {
     const batch = promiseArray.slice(0, batchLength);
     const nextBatch = promiseArray.slice(batchLength);
