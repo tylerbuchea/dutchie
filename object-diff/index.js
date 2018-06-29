@@ -15,7 +15,6 @@ function objectDiff(newCode, oldCode) {
   }
 
   return diffTokens;
-
 }
 
 function flatten(parentValue, parentKey = '', path = '') {
@@ -31,37 +30,3 @@ function flatten(parentValue, parentKey = '', path = '') {
 
   return paths;
 }
-
-// apples 3
-// oranges.bergamot 3
-// oranges.navel.peaches 1
-// oranges.navel.apples 3
-
-// [ '-', 'oranges.valencia.pears', 2 ],
-// [ '-', 'oranges.valencia.oranges', 4 ],
-// [ '+', 'oranges.navel.peaches', 1 ],
-// [ '+', 'oranges.navel.apples', 3 ]
-
-const newCode = {
-  apples: 3,
-  oranges: {
-    bergamot: 3,
-    navel: {
-      peaches: 1,
-      apples: 3
-    }
-  }
-}
-
-const oldCode = {
-  apples: 3,
-  oranges: {
-    bergamot: 3,
-    valencia: {
-      pears: 2,
-      oranges: 4
-    }
-  }
-}
-
-console.log(objectDiff(newCode, oldCode))
