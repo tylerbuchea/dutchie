@@ -6,6 +6,11 @@ module.exports = function merkle(tree, simpleHasher) {
     // console.log('verify');
   }
 
+  // This is me trying to manually compose them because my crawlTree
+  // function wasn't working.
+  // But this doesn't work either. This is how I think it should look
+  // But apprently not.
+  // I have .only set in the test file
   const root = simpleHasher(
     simpleHasher(tree[0] + tree[1]) + tree[2]
   );
@@ -22,6 +27,7 @@ module.exports = function merkle(tree, simpleHasher) {
 
 }
 
+// This is my automatic merkle tree application function
 function crawlTree(tree, simpleHasher) {
   const nextTeir = [];
 
